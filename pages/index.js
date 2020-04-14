@@ -7,27 +7,26 @@ const Index = props => {
   const [keyword, setKeyword] = useState("");
   const [movie, setMovie] = useState([]);
 
+  useEffect(() => {
+    if(movie.length === 0){
+      setMovie(props.shows)
+    }
+  })
+
   const handleChange = async event => {
     await setKeyword(event.target.value)
     const res = await fetch(`https://api.tvmaze.com/search/shows?q=${keyword}`);
     const data = await res.json();
 
-    //console.log(data)
-
-    console.log(`Show data fetched. Count: ${data.length}`);
-
     await setMovie(data.map(entry => entry.show));
-    //console.log(movie)
-    //console.log(props.shows)
+
   }
   return (
     <Layout>
-      
+
       <h1>TV Shows</h1>
       <ul>
-        <form>
-          <input type="text" onChange={handleChange} value={keyword} />
-        </form>
+        <input type="text" onChange={handleChange} value={keyword} />
         {movie.map(show => (
           <li key={show.id}>
             <Link href="/clean-uri/[id]" as={`/clean-uri/${show.id}`}>
