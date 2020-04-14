@@ -3,22 +3,32 @@ import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { useState, useEffect } from 'react'
 
-const Index = props => {
+const Index = () => {
   const [keyword, setKeyword] = useState("");
   const [movie, setMovie] = useState([]);
 
   useEffect(() => {
-    if(movie.length === 0){
-      setMovie(props.shows)
+    if (movie.length === 0) {
+      getDataProps()
     }
   })
 
+  const getDataProps = async (keyword = null) => {
+    if (keyword === null) {
+      const res = await fetch('http://api.tvmaze.com/shows');
+      const data = await res.json();
+      await setMovie(data.map(entry => entry));
+    } else {
+      const res = await fetch(`https://api.tvmaze.com/search/shows?q=${keyword}`);
+      const data = await res.json();
+      await setMovie(data.map(entry => entry.show));
+    }
+
+  }
+
   const handleChange = async event => {
     await setKeyword(event.target.value)
-    const res = await fetch(`https://api.tvmaze.com/search/shows?q=${keyword}`);
-    const data = await res.json();
-
-    await setMovie(data.map(entry => entry.show));
+    await getDataProps(keyword);
 
   }
   return (
@@ -63,7 +73,7 @@ const Index = props => {
   );
 }
 
-Index.getInitialProps = async function () {
+/*Index.getInitialProps = async function () {
   const res = await fetch('http://api.tvmaze.com/shows');
   const data = await res.json();
 
@@ -72,6 +82,6 @@ Index.getInitialProps = async function () {
   return {
     shows: data.map(entry => entry)
   };
-};
+};*/
 
 export default Index
