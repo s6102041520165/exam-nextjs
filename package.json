@@ -8,7 +8,7 @@
     "start": "next start -p $PORT"
   },
   "engines": {
-    "node": "10"
+    "node": "12.14.1"
   },
   "dependencies": {
     "isomorphic-unfetch": "^3.0.0",
