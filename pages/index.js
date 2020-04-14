@@ -3,27 +3,20 @@ import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { useState, useEffect } from 'react'
 
-const Index = () => {
+const Index = props => {
   const [keyword, setKeyword] = useState("");
   const [movie, setMovie] = useState([]);
 
   useEffect(() => {
     if (movie.length === 0) {
-      getDataProps()
+      setMovie(props.shows)
     }
   })
 
   const getDataProps = async (keyword = null) => {
-    if (keyword === null) {
-      const res = await fetch('http://api.tvmaze.com/shows');
-      const data = await res.json();
-      await setMovie(data.map(entry => entry));
-    } else {
-      const res = await fetch(`https://api.tvmaze.com/search/shows?q=${keyword}`);
-      const data = await res.json();
-      await setMovie(data.map(entry => entry.show));
-    }
-
+    const res = await fetch(`https://api.tvmaze.com/search/shows?q=${keyword}`);
+    const data = await res.json();
+    await setMovie(data.map(entry => entry.show));
   }
 
   const handleChange = async event => {
@@ -73,15 +66,18 @@ const Index = () => {
   );
 }
 
-/*Index.getInitialProps = async function () {
-  const res = await fetch('http://api.tvmaze.com/shows');
-  const data = await res.json();
+Index.getInitialProps = async function () {
+  try {
+    const res = await fetch('https://api.tvmaze.com/shows');
+    const data = await res.json();
 
-  console.log(`Show data fetched. Count: ${data.length}`);
-
-  return {
-    shows: data.map(entry => entry)
-  };
-};*/
+    console.log(`Show data fetched. Count: ${data.length}`);
+    return {
+      shows: data.map(entry => entry)
+    };
+  } catch (error) {
+    console(error)
+  }
+};
 
 export default Index
