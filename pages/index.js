@@ -13,7 +13,7 @@ const Index = props => {
     }
   })
 
-  const getDataProps = async (keyword = null) => {
+  const getDataProps = async (keyword) => {
     const res = await fetch(`https://api.tvmaze.com/search/shows?q=${keyword}`);
     const data = await res.json();
     await setMovie(data.map(entry => entry.show));
@@ -22,7 +22,6 @@ const Index = props => {
   const handleChange = async event => {
     await setKeyword(event.target.value)
     await getDataProps(keyword);
-
   }
   return (
     <Layout>
