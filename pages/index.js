@@ -33,7 +33,7 @@ const Index = props => {
   return (
     <Layout>
 
-      <h1>TV Shows</h1>
+      <h1>TV </h1>
       <ul>
         <input type="text" name="keyword" onChange={handleChange} value={keyword} />
         {movie.map(show => (
@@ -72,7 +72,7 @@ const Index = props => {
   );
 }
 
-/* export async function getStaticProps() {
+export async function getStaticProps() {
   try {
     const res = await fetch('https://api.tvmaze.com/shows');
     const data = await res.json();
@@ -84,10 +84,10 @@ const Index = props => {
 
     };
   } catch (error) {
-    console(error)
+    console.log(error)
   }
-}; */
-Index.getInitialProps = async () =>{
+};
+/* Index.getInitialProps = async () =>{
   try {
     const res = await fetch('https://api.tvmaze.com/shows');
     const data = await res.json();
@@ -99,8 +99,8 @@ Index.getInitialProps = async () =>{
 
     };
   } catch (error) {
-    console(error)
+    console.log(error)
   }
-};
+}; */
 
 export default Index
