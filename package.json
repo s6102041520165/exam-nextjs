@@ -5,14 +5,17 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p $PORT"
+    "start": "next start -p $PORT",
+    "export": "cross-env NEXT_EXPORT=true next build && cross-env NEXT_EXPORT=true next export"
   },
   "engines": {
     "node": "12.14.1"
   },
   "dependencies": {
+    "cross-env": "^7.0.2",
     "isomorphic-unfetch": "^3.0.0",
     "next": "9.3.4",
+    "next-offline": "^5.0.2",
     "next-pwa": "^2.4.1",
     "react": "16.13.1",
     "react-dom": "16.13.1"

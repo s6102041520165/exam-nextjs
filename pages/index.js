@@ -33,7 +33,7 @@ const Index = props => {
   return (
     <Layout>
 
-      <h1>TV </h1>
+      <h1>TV Shows</h1>
       <ul>
         <input type="text" name="keyword" onChange={handleChange} value={keyword} />
         {movie.map(show => (
