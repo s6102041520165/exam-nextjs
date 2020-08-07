@@ -15,9 +15,7 @@ const Header = () => (
     <Link href={`/post?title=petch`}>
       <a style={linkStyle}>Query Params</a>
     </Link>
-    <Link href={`/post?title=petch`}>
-      <a style={linkStyle}>Test Menu</a>
-    </Link>
+    
   </div>
 );
 
